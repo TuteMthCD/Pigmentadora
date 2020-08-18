@@ -47,15 +47,15 @@ void setup() {
 }
 
 void loop() {
-  if(DigitalRead(SignalOn)){
+  if(digitalRead(SignalOn)){
     MotorA.drive(VelocityMotorA);
-    DigitalWrite(SignalOut,HIGH);
+    digitalWrite(SignalOut,HIGH);
 
-    SignalOnAux = DigitalRead(SignalOn);
-  }else if (!DigitalRead(SignalOn) && SignalOnAux) { //creo detector de flanco descendente
+    SignalOnAux = TRUE;
+  }else if(SignalOnAux==TRUE) { //creo detector de flanco descendente
     MotorA.drive(VelocityMotorA,timeA);
-    DigitalWrite(SignalOut,LOW);
+    digitalWrite(SignalOut,LOW);
 
-    SignalOnAux = DigitalRead(SignalOn);
+    SignalOnAux = FALSE;
   }
 }
